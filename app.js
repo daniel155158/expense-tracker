@@ -32,6 +32,10 @@ app.post('/edit', (req, res) => {
   const body = req.body
   res.render('edit', { body })
 })
+// 點擊delete
+app.get('/delete', (req, res) => {
+  res.redirect('/')
+})
 
 app.listen(port, () => {
   console.log(`app is running in http://localhost:${port}`)
