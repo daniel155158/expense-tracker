@@ -15,6 +15,10 @@ app.get('/new', (req, res) => {
   res.render('new')
 })
 
+app.get('/edit', (req, res) => {
+  res.render('edit')
+})
+
 app.listen(port, () => {
   console.log(`app is running in http://localhost:${port}`)
 })
