@@ -23,9 +23,14 @@ app.post('/new', (req, res) => {
   const body = req.body
   res.render('new', { body })
 })
-
+// 進入編輯頁面
 app.get('/edit', (req, res) => {
   res.render('edit')
+})
+// 提交編輯支出表單
+app.post('/edit', (req, res) => {
+  const body = req.body
+  res.render('edit', { body })
 })
 
 app.listen(port, () => {
