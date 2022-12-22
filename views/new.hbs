@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="row d-flex flex-column align-items-center">
+    <form class="col-4" action="/new" method="post">
+      <div class="mb-4 d-flex flex-row row">
+        <p class="col-4 text-danger fw-light m-0">*為必填欄位</p>
+        <p class="col m-0 text-center">請輸入你的支出內容</p>
+      </div>
+      <div class="mb-3 d-flex flex-row row">
+        <label for="name" class="form-label col-4 m-0 d-flex align-items-center">名稱*</label>
+        <input type="text" class="form-control col" id="name" name="name" aria-describedby="name" placeholder="請輸入支出名稱"
+          required>
+      </div>
+      <div class="mb-3 d-flex flex-row row">
+        <label for="date" class="form-label col-4 m-0 d-flex align-items-center">日期*</label>
+        <input type="date" class="form-control col" id="date" name="date" aria-describedby="date" required>
+      </div>
+      <div class="mb-3 d-flex flex-row row">
+        <label for="category" class="form-label col-4 m-0 d-flex align-items-center">類別*</label>
+        <select class="form-select col" aria-label="Default select example" id="category" name="category" required>
+          <option selected>Select</option>
+          <option value="1">家居物業</option>
+          <option value="2">交通出行</option>
+          <option value="3">休閒娛樂</option>
+          <option value="4">餐飲食品</option>
+          <option value="5">其他</option>
+        </select>
+      </div>
+      <div class="mb-3 d-flex flex-row row">
+        <label for="cost" class="form-label col-4 m-0 d-flex align-items-center">金額*</label>
+        <input type="text" class="form-control col" id="cost" name="cost" aria-describedby="cost" placeholder="請輸入支出金額"
+          required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary col-6 mt-3">新增支出</button>
+      </div>
+    </form>
+  </div>
+</div>
