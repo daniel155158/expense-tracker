@@ -18,4 +18,26 @@ router.get('/', async (req, res) => {
   res.render('index', { records })
 })
 
+// 搜尋不同類別的支出情形
+router.post('/search', async (req, res) => {
+  let totalAmount = 0
+  const search = req.body.search
+  const categoryItem = await Category.findOne({ name: search })
+  const categoryId = categoryItem._id
+  const allRecords = await Record.find().lean().sort({ _id: 'asc' })
+  const filteredRecords = allRecords.filter(record => {
+    return (JSON.stringify(record.categoryId)) === (JSON.stringify(categoryId))
+  })
+  const records = filteredRecords.map(record => {
+    record.categoryIcon = categoryItem.icon
+    record.date = record.date.toISOString().slice(0, 10)
+    totalAmount += record.cost
+    return record
+  })
+  records.totalAmount = totalAmount
+  records.categoryName = categoryItem.name
+  res.render('index', { records })
+})
+
+
 module.exports = router

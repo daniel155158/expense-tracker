@@ -1,14 +1,19 @@
 <div class="container mt-5">
   <div class="row d-flex flex-column align-items-center">
     <div class="col-4">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>類別</option>
-        <option value="1">家居物業</option>
-        <option value="2">交通出行</option>
-        <option value="3">休閒娛樂</option>
-        <option value="4">餐飲食品</option>
-        <option value="5">其他</option>
-      </select>
+      <form class="d-flex flex-row" action="/search" method="POST">
+        <label for="search" class="form-label col-3 m-0 d-flex align-items-center">篩選類別:</label>
+        <select class="form-select col" id="search" name="search">
+          <option value="{{records.categoryName}}" hidden="hidden" selected="selected">{{records.categoryName}}
+          </option>
+          <option value="家居物業">家居物業</option>
+          <option value="交通出行">交通出行</option>
+          <option value="休閒娛樂">休閒娛樂</option>
+          <option value="餐飲食品">餐飲食品</option>
+          <option value="其他">其他</option>
+        </select>
+        <button type="submit" class="btn btn-primary col-2 ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
     </div>
     <div class="col-4 text-center mt-3">
       <p class="m-0">總金額: {{records.totalAmount}}元</p>
