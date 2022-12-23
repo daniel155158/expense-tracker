@@ -3,6 +3,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const Record = require('./models/record')
 const port = 3000
 
 // template engine
@@ -27,7 +28,20 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // 進入首頁
 app.get('/', (req, res) => {
-  res.render('index')
+  Record.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then((items) => {
+      items.forEach(item => {
+        item.date = item.date.toISOString().slice(0, 10)
+      })
+      console.log(items)
+      return items
+    })
+    .then((records) => {
+      res.render('index', { records })
+    })
+    .catch(err => console.log(err))
 })
 // 進入新增頁面
 app.get('/new', (req, res) => {
@@ -36,7 +50,14 @@ app.get('/new', (req, res) => {
 // 提交新增支出表單
 app.post('/new', (req, res) => {
   const body = req.body
-  res.render('new', { body })
+  Record.create({
+    name: body.name,
+    date: body.date,
+    category: body.category,
+    cost: body.cost
+  })
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
 })
 // 進入編輯頁面
 app.get('/edit', (req, res) => {

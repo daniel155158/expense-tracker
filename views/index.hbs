@@ -14,16 +14,18 @@
       <p class="m-0">總金額: 0元</p>
     </div>
     <ul class="list-group col-8 mt-3">
+      {{#each records}}
       <li class="list-group-item d-flex flex-row align-items-center">
         <div class="col-3 ">ICON</div>
         <div class="col-4">
-          <p class="m-0">午餐</p>
-          <p class="m-0">2021/12/21</p>
+          <p class="m-0">{{this.name}}</p>
+          <p class="m-0">{{this.date}}</p>
         </div>
-        <div class="col-3 text-center">60元</div>
+        <div class="col-3 text-center">{{this.cost}}元</div>
         <a class="col-1 text-end" href="/edit">修改</a>
         <a class="col-1 text-end" href="/delete">刪除</a>
       </li>
+      {{/each}}
       <li class="list-group-item d-flex flex-row align-items-center">
         <div class="col-3 ">ICON</div>
         <div class="col-4">
@@ -35,7 +37,7 @@
         <a class="col-1 text-end" href="/delete">刪除</a>
       </li>
       <li class="list-group-item d-flex flex-row align-items-center">
-        <div class="col-3 ">ICON</div>
+        <div class="col-3 "><i class="fa-solid fa-van-shuttle"></i></div>
         <div class="col-4">
           <p class="m-0">捷運</p>
           <p class="m-0">2021/12/21</p>
