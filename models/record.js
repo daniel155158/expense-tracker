@@ -10,12 +10,14 @@ const recordSchema = new Schema({
     type: Date,
     required: true
   },
-  category: {
-    type: String,
-    required: true
-  },
   cost: {
     type: Number,
+    required: true
+  },
+  categoryId: { //與category關聯
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    index: true,
     required: true
   }
 })

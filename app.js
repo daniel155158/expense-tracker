@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Record = require('./models/record')
+const Category = require('./models/category')
 const port = 3000
 
 // template engine
@@ -14,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 // mongoose setting
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 const db = mongoose.connection
 db.on('error', () => {
   console.log('MongoDB connection error!')
@@ -27,37 +28,39 @@ db.once('open', () => {
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // 進入首頁
-app.get('/', (req, res) => {
-  Record.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then((items) => {
-      items.forEach(item => {
-        item.date = item.date.toISOString().slice(0, 10)
-      })
-      console.log(items)
-      return items
-    })
-    .then((records) => {
-      res.render('index', { records })
-    })
-    .catch(err => console.log(err))
+app.get('/', async (req, res) => {
+  let totalAmount = 0
+  const items = await Record.find().lean().sort({ _id: 'asc' })
+  const records = await Promise.all(items.map(async (item) => {
+    const category = await Category.findOne({ _id: item.categoryId })
+    item.categoryIcon = category.icon
+    item.date = item.date.toISOString().slice(0, 10)
+    totalAmount += item.cost
+    return item
+  }))
+  records.totalAmount = totalAmount
+  res.render('index', { records })
 })
 // 進入新增頁面
 app.get('/new', (req, res) => {
   res.render('new')
 })
 // 提交新增支出表單
-app.post('/new', (req, res) => {
-  const body = req.body
-  Record.create({
-    name: body.name,
-    date: body.date,
-    category: body.category,
-    cost: body.cost
-  })
-    .then(() => res.redirect('/'))
-    .catch(err => console.log(err))
+app.post('/new', async (req, res) => {
+  try {
+    const body = req.body
+    const categoryItem = await Category.findOne({ name: body.category })
+    await Record.create({
+      name: body.name,
+      date: body.date,
+      cost: body.cost,
+      categoryId: categoryItem._id
+    })
+    res.redirect('/')
+  }
+  catch (error) {
+    console.log(error)
+  }
 })
 // 進入編輯頁面
 app.get('/edit', (req, res) => {

@@ -11,12 +11,12 @@
       </select>
     </div>
     <div class="col-4 text-center mt-3">
-      <p class="m-0">總金額: 0元</p>
+      <p class="m-0">總金額: {{records.totalAmount}}元</p>
     </div>
     <ul class="list-group col-8 mt-3">
       {{#each records}}
       <li class="list-group-item d-flex flex-row align-items-center">
-        <div class="col-3 ">ICON</div>
+        <div class="col-3 text-secondary">{{{this.categoryIcon}}}</div>
         <div class="col-4">
           <p class="m-0">{{this.name}}</p>
           <p class="m-0">{{this.date}}</p>
@@ -26,26 +26,6 @@
         <a class="col-1 text-end" href="/delete">刪除</a>
       </li>
       {{/each}}
-      <li class="list-group-item d-flex flex-row align-items-center">
-        <div class="col-3 ">ICON</div>
-        <div class="col-4">
-          <p class="m-0">晚餐</p>
-          <p class="m-0">2021/12/21</p>
-        </div>
-        <div class="col-3 text-center">60元</div>
-        <a class="col-1 text-end" href="/edit">修改</a>
-        <a class="col-1 text-end" href="/delete">刪除</a>
-      </li>
-      <li class="list-group-item d-flex flex-row align-items-center">
-        <div class="col-3 "><i class="fa-solid fa-van-shuttle"></i></div>
-        <div class="col-4">
-          <p class="m-0">捷運</p>
-          <p class="m-0">2021/12/21</p>
-        </div>
-        <div class="col-3 text-center">120元</div>
-        <a class="col-1 text-end" href="/edit">修改</a>
-        <a class="col-1 text-end" href="/delete">刪除</a>
-      </li>
     </ul>
     <a class="btn btn-primary col-3 mt-4" href="/new" role="button">新增支出</a>
   </div>
