@@ -8,17 +8,17 @@
       <div class="mb-3 d-flex flex-row row">
         <label for="name" class="form-label col-4 m-0 d-flex align-items-center">名稱*</label>
         <input type="text" class="form-control col" id="name" name="name" aria-describedby="name" placeholder="支出名稱"
-          value="{{body.name}}" required>
+          value="{{record.name}}" required>
       </div>
       <div class="mb-3 d-flex flex-row row">
         <label for="date" class="form-label col-4 m-0 d-flex align-items-center">日期*</label>
-        <input type="date" class="form-control col" id="date" name="date" aria-describedby="date" value="{{body.date}}"
-          required>
+        <input type="date" class="form-control col" id="date" name="date" aria-describedby="date"
+          value="{{record.date}}" required>
       </div>
       <div class="mb-3 d-flex flex-row row">
         <label for="category" class="form-label col-4 m-0 d-flex align-items-center">類別*</label>
         <select class="form-select col" aria-label="Default select example" id="category" name="category" required>
-          <option value="{{body.category}}" hidden="hidden" selected="selected">{{body.category}}
+          <option value="{{record.categoryName}}" hidden="hidden" selected="selected">{{record.categoryName}}
           </option>
           <option value="家居物業">家居物業</option>
           <option value="交通出行">交通出行</option>
@@ -30,7 +30,7 @@
       <div class="mb-3 d-flex flex-row row">
         <label for="cost" class="form-label col-4 m-0 d-flex align-items-center">金額*</label>
         <input type="number" min="0" class="form-control col" id="cost" name="cost" aria-describedby="cost"
-          placeholder="支出金額" value="{{body.cost}}" required>
+          placeholder="支出金額" value="{{record.cost}}" required>
       </div>
       <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-primary col-6 mt-3">送出</button>

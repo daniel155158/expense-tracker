@@ -22,8 +22,8 @@
           <p class="m-0">{{this.date}}</p>
         </div>
         <div class="col-3 text-center">{{this.cost}}元</div>
-        <a class="col-1 text-end" href="/edit">修改</a>
-        <a class="col-1 text-end" href="/delete">刪除</a>
+        <a class="col-1 text-end" href="/edit/{{this._id}}">修改</a>
+        <a class="col-1 text-end" href="/delete/{{this._id}}">刪除</a>
       </li>
       {{/each}}
     </ul>
