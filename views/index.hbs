@@ -22,11 +22,16 @@
           <p class="m-0">{{this.date}}</p>
         </div>
         <div class="col-3 text-center">{{this.cost}}元</div>
-        <a class="col-1 text-end" href="/edit/{{this._id}}">修改</a>
-        <a class="col-1 text-end" href="/delete/{{this._id}}">刪除</a>
+        <form class="col-1 text-end" action="/records/{{this._id}}/edit" method="GET">
+          <button type="submit" class="btn btn-outline-secondary btn-sm">修改</button>
+        </form>
+        <form class="col-1 text-end" action="/records/{{ this._id }}?_method=DELETE" method="POST">
+          <button type="submit" class="btn btn-outline-danger btn-sm">刪除</button>
+        </form>
+
       </li>
       {{/each}}
     </ul>
-    <a class="btn btn-primary col-3 mt-4" href="/new" role="button">新增支出</a>
+    <a class="btn btn-primary col-3 mt-4" href="/records/new" role="button">新增支出</a>
   </div>
 </div>

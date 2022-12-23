@@ -3,6 +3,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 const Record = require('./models/record')
 const Category = require('./models/category')
 const port = 3000
@@ -26,6 +27,7 @@ db.once('open', () => {
 
 // middleware
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 // 進入首頁
 app.get('/', async (req, res) => {
@@ -42,11 +44,11 @@ app.get('/', async (req, res) => {
   res.render('index', { records })
 })
 // 進入新增支出頁面
-app.get('/new', (req, res) => {
+app.get('/records/new', (req, res) => {
   res.render('new')
 })
 // 提交新增支出表單
-app.post('/new', async (req, res) => {
+app.post('/records', async (req, res) => {
   try {
     const body = req.body
     const categoryItem = await Category.findOne({ name: body.category })
@@ -63,7 +65,7 @@ app.post('/new', async (req, res) => {
   }
 })
 // 進入修改支出頁面
-app.get('/edit/:_id', (req, res) => {
+app.get('/records/:_id/edit', (req, res) => {
   const id = req.params._id
   Record.findOne({ _id: id })
     .lean()
@@ -80,7 +82,7 @@ app.get('/edit/:_id', (req, res) => {
     })
 })
 // 提交修改支出表單
-app.post('/edit/:_id', (req, res) => {
+app.put('/records/:_id', (req, res) => {
   const id = req.params._id
   const body = req.body
   return Category.findOne({ name: body.category })
@@ -94,11 +96,11 @@ app.post('/edit/:_id', (req, res) => {
           return record.save()
         })
     })
-    .then(() => res.redirect(`/edit/${id}`))
+    .then(() => res.redirect(`/records/${id}/edit`))
     .catch(error => console.log(error))
 })
 // 點擊刪除支出
-app.get('/delete/:_id', (req, res) => {
+app.delete('/records/:_id', (req, res) => {
   const id = req.params._id
   return Record.findOne({ _id: id })
     .then(record => record.remove())
