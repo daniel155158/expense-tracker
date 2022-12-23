@@ -80,9 +80,22 @@ app.get('/edit/:_id', (req, res) => {
     })
 })
 // 提交編輯支出表單
-app.post('/edit', (req, res) => {
+app.post('/edit/:_id', (req, res) => {
+  const id = req.params._id
   const body = req.body
-  res.render('edit', { body })
+  return Category.findOne({ name: body.category })
+    .then(categoryItem => {
+      return Record.findOne({ _id: id })
+        .then(record => {
+          record.name = body.name
+          record.date = body.date
+          record.cost = body.cost
+          record.categoryId = categoryItem._id
+          return record.save()
+        })
+    })
+    .then(() => res.redirect(`/edit/${id}`))
+    .catch(error => console.log(error))
 })
 // 點擊delete
 app.get('/delete', (req, res) => {
