@@ -41,7 +41,7 @@ app.get('/', async (req, res) => {
   records.totalAmount = totalAmount
   res.render('index', { records })
 })
-// 進入新增頁面
+// 進入新增支出頁面
 app.get('/new', (req, res) => {
   res.render('new')
 })
@@ -62,7 +62,7 @@ app.post('/new', async (req, res) => {
     console.log(error)
   }
 })
-// 進入編輯頁面
+// 進入修改支出頁面
 app.get('/edit/:_id', (req, res) => {
   const id = req.params._id
   Record.findOne({ _id: id })
@@ -79,7 +79,7 @@ app.get('/edit/:_id', (req, res) => {
       res.render('edit', { record })
     })
 })
-// 提交編輯支出表單
+// 提交修改支出表單
 app.post('/edit/:_id', (req, res) => {
   const id = req.params._id
   const body = req.body
@@ -97,9 +97,13 @@ app.post('/edit/:_id', (req, res) => {
     .then(() => res.redirect(`/edit/${id}`))
     .catch(error => console.log(error))
 })
-// 點擊delete
-app.get('/delete', (req, res) => {
-  res.redirect('/')
+// 點擊刪除支出
+app.get('/delete/:_id', (req, res) => {
+  const id = req.params._id
+  return Record.findOne({ _id: id })
+    .then(record => record.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {
