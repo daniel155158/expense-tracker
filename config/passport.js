@@ -7,14 +7,14 @@ module.exports = app => {
   app.use(passport.initialize());
   app.use(passport.session());
   // 設定local登入
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true, }, (req, email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false)
+          return done(null, false, { message: '此信箱尚未註冊!' })
         }
         if (user.password !== password) {
-          return done(null, false)
+          return done(null, false, { message: '請輸入正確的信箱與密碼' })
         }
         return done(null, user);
       })
