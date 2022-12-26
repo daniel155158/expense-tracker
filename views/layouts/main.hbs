@@ -13,9 +13,19 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-light" style=" background-color: #e3f2fd;">
-    <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="/">家庭記帳本</a>
+  <nav class="navbar navbar-light d-flex flex-row justify-content-between" style=" background-color: #e3f2fd;">
+    <div class="ms-5">
+      <a class="navbar-brand fw-bold" href="/">
+        {{#if isAuthenticated}}{{user.name}}的{{/if}}
+        家庭記帳本
+      </a>
+    </div>
+    <div class="me-5">
+      {{#if isAuthenticated}}
+      <a href="/users/logout" class="btn btn btn-outline-success">Logout</a>
+      {{else}}
+      <a href="/users/login" class="btn btn btn-outline-success">Login</a>
+      {{/if}}
     </div>
   </nav>
   <!-- Body -->

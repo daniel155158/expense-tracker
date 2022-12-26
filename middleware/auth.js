@@ -1,6 +1,6 @@
 module.exports = {
   authenticator: (req, res, next) => {
-    if (req.isAuthenticate) {
+    if (req.isAuthenticated()) {
       return next()
     }
     res.redirect('/users/login')
