@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
 const Category = require('../category')
+const db = require('../../config/mongoose')
 
 const CATEGORY = [
   {
@@ -24,18 +24,8 @@ const CATEGORY = [
   }
 ]
 
-// 非正式環境下使用dotenv
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-// mongoose setting
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-const db = mongoose.connection
-db.on('error', () => {
-  console.log('MongoDB connection error!')
-})
 db.once('open', () => {
-  console.log('MongoDB connected!')
+  // console.log('MongoDB connected!')
   Category.insertMany(CATEGORY)
     .then(() => console.log('categorySeeder created!'))
     .catch(error => console.log(error))
