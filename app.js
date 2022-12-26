@@ -6,6 +6,7 @@ const session = require('express-session')
 const app = express()
 const port = 3000
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 // template engine
@@ -20,6 +21,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
+usePassport(app)
 app.use(routes)
 
 app.listen(port, () => {
