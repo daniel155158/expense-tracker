@@ -39,5 +39,4 @@ router.post('/search', async (req, res) => {
   res.render('index', { records })
 })
 
-
 module.exports = router

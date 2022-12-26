@@ -4,17 +4,19 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title text-center fw-bold mb-3">Register</h2>
-          <form>
+          <form action="/users/register" method="post">
             <div class="mb-3 d-flex flex-row row">
               <p class="col-4 text-danger fw-light m-0">*為必填欄位</p>
             </div>
             <div class="mb-3">
               <label for="name" class="form-label fw-bold">Name*</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name"
+                value="{{name}}">
             </div>
             <div class="mb-3">
               <label for="email" class="form-label fw-bold">Email*</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
+                value="{{email}}">
             </div>
             <div class="mb-3">
               <label for="password" class="form-label fw-bold">Password*</label>

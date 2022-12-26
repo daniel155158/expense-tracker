@@ -2,11 +2,9 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
-
 const methodOverride = require('method-override')
 const routes = require('./routes')
-const Record = require('./models/record')
-const Category = require('./models/category')
+require('./config/mongoose')
 const port = 3000
 
 // template engine
