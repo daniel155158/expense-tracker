@@ -19,7 +19,13 @@ const recordSchema = new Schema({
     ref: 'Category',
     index: true,
     required: true
-  }
+  },
+  userId: { //與user關聯
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
+  },
 })
 
 module.exports = mongoose.model('Record', recordSchema)
