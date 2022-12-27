@@ -24,13 +24,13 @@ const CATEGORY = [
   }
 ]
 
-db.once('open', () => {
-  // console.log('MongoDB connected!')
-  Category.insertMany(CATEGORY)
-    .then(() => console.log('categorySeeder created!'))
-    .catch(error => console.log(error))
+db.once('open', async () => {
+  try {
+    await Category.insertMany(CATEGORY)
+    console.log('categorySeeder created!')
+    process.exit()
+  }
+  catch (error) {
+    console.log(error)
+  }
 })
-
-
-
-
