@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     const user = await User.findOne({ email })
     const userId = user._id
     // 找特定使用者的records
-    const items = await Record.find({ userId }).lean().sort({ _id: 'asc' })
+    const items = await Record.find({ userId }).lean().sort({ date: 'desc' })
     const records = await Promise.all(items.map(async (item) => {
       // 透過category的_id來取得特定category資料
       const category = await Category.findOne({ _id: item.categoryId })
@@ -43,7 +43,7 @@ router.post('/search', async (req, res) => {
     const categoryItem = await Category.findOne({ name: search })
     const categoryId = categoryItem._id
     // 找特定使用者的records
-    const allRecords = await Record.find({ userId }).lean().sort({ _id: 'asc' })
+    const allRecords = await Record.find({ userId }).lean().sort({ date: 'desc' })
     // 篩選出特定category的records
     const filteredRecords = allRecords.filter(record => {
       return (JSON.stringify(record.categoryId)) === (JSON.stringify(categoryId))
