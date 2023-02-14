@@ -61,6 +61,7 @@ router.put('/:_id', async (req, res) => {
     record.cost = body.cost
     record.categoryId = categoryItem._id
     record.save()
+    req.flash('success_msg', '你已經完成支出修改')
     res.redirect(`/records/${_id}/edit`)
   }
   catch (error) {
