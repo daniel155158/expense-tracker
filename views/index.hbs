@@ -38,7 +38,8 @@
           <button type="submit" class="btn btn-outline-secondary btn-sm">修改</button>
         </form>
         <form class="col-1 text-end" action="/records/{{ this._id }}?_method=DELETE" method="POST">
-          <button type="submit" class="btn btn-outline-danger btn-sm">刪除</button>
+          <button type="submit" class="btn btn-outline-danger btn-sm"
+            onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">刪除</button>
         </form>
 
       </li>
